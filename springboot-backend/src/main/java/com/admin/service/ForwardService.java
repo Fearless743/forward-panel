@@ -41,7 +41,7 @@ public interface ForwardService extends IService<Forward> {
      * @param id 转发ID
      * @return 结果
      */
-    R deleteForward(Long id);
+    R deleteForward(Long[] id);
 
     /**
      * 强制删除端口转发
@@ -49,21 +49,21 @@ public interface ForwardService extends IService<Forward> {
      * @param id 转发ID
      * @return 结果
      */
-    R forceDeleteForward(Long id);
+    R forceDeleteForward(Long[] id);
 
     /**
      * 暂停转发服务
      * @param id 转发ID
      * @return 结果
      */
-    R pauseForward(Long id);
+    R pauseForward(Long[] id);
 
     /**
      * 恢复转发服务
      * @param id 转发ID
      * @return 结果
      */
-    R resumeForward(Long id);
+    R resumeForward(Long[] id);
 
     /**
      * 转发诊断功能

@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author QAQ
@@ -50,33 +50,34 @@ public class ForwardController extends BaseController {
     @LogAnnotation
     @PostMapping("/delete")
     public R delete(@RequestBody Map<String, Object> params) {
-        Long id = Long.valueOf(params.get("id").toString());
+        Long[] id = (Long[]) params.get("id");
         return forwardService.deleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/force-delete")
     public R forceDelete(@RequestBody Map<String, Object> params) {
-        Long id = Long.valueOf(params.get("id").toString());
+        Long[] id = (Long[]) params.get("id");
         return forwardService.forceDeleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/pause")
     public R pause(@RequestBody Map<String, Object> params) {
-        Long id = Long.valueOf(params.get("id").toString());
+        Long[] id = (Long[]) params.get("id");
         return forwardService.pauseForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/resume")
     public R resume(@RequestBody Map<String, Object> params) {
-        Long id = Long.valueOf(params.get("id").toString());
+        Long[] id = (Long[]) params.get("id");
         return forwardService.resumeForward(id);
     }
 
     /**
      * 转发诊断功能
+     * 
      * @param params 包含forwardId的参数
      * @return 诊断结果
      */

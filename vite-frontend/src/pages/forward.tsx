@@ -153,36 +153,27 @@ export default function ForwardPage() {
       !window.confirm(`确定要批量删除选中的 ${selectedIds.length} 个转发吗？`)
     )
       return;
-    for (const id of selectedIds) {
-      try {
-        await deleteForward(id);
-      } catch {}
-    }
+    try {
+      await deleteForward(selectedIds);
+    } catch {}
+
     setSelectedIds([]);
     loadData();
   }
   async function handleBatchPause() {
     if (selectedIds.length === 0) return;
-    for (const id of selectedIds) {
-      const f = forwards.find((f) => f.id === id);
-      if (f && f.status === 1) {
-        try {
-          await pauseForwardService(id);
-        } catch {}
-      }
-    }
+
+    try {
+      await pauseForwardService(selectedIds);
+    } catch {}
     loadData();
   }
   async function handleBatchResume() {
     if (selectedIds.length === 0) return;
-    for (const id of selectedIds) {
-      const f = forwards.find((f) => f.id === id);
-      if (f && f.status === 0) {
-        try {
-          await resumeForwardService(id);
-        } catch {}
-      }
-    }
+
+    try {
+      await resumeForwardService(selectedIds);
+    } catch {}
     loadData();
   }
   // 批量诊断
@@ -420,7 +411,7 @@ export default function ForwardPage() {
 
     setDeleteLoading(true);
     try {
-      const res = await deleteForward(forwardToDelete.id);
+      const res = await deleteForward([forwardToDelete.id]);
       if (res.code === 0) {
         toast.success("删除成功");
         setDeleteModalOpen(false);
@@ -431,7 +422,7 @@ export default function ForwardPage() {
           `常规删除失败：${res.msg || "删除失败"}\n\n是否需要强制删除？\n\n⚠️ 注意：强制删除不会去验证节点端是否已经删除对应的转发服务。`
         );
         if (confirmed) {
-          const forceRes = await forceDeleteForward(forwardToDelete.id);
+          const forceRes = await forceDeleteForward([forwardToDelete.id]);
           if (forceRes.code === 0) {
             toast.success("强制删除成功");
             setDeleteModalOpen(false);
@@ -529,9 +520,9 @@ export default function ForwardPage() {
 
       let res;
       if (targetState) {
-        res = await resumeForwardService(forward.id);
+        res = await resumeForwardService([forward.id]);
       } else {
-        res = await pauseForwardService(forward.id);
+        res = await pauseForwardService([forward.id]);
       }
 
       if (res.code === 0) {
