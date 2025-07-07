@@ -84,6 +84,8 @@ export default function ForwardPage() {
   const [loading, setLoading] = useState(true);
   const [forwards, setForwards] = useState<Forward[]>([]);
   const [tunnels, setTunnels] = useState<Tunnel[]>([]);
+  // 隧道过滤
+  const [filterTunnelId, setFilterTunnelId] = useState<number | null>(null);
   
   // 模态框状态
   const [modalOpen, setModalOpen] = useState(false);
@@ -616,25 +618,45 @@ export default function ForwardPage() {
     <AdminLayout>
       <div className="px-3 lg:px-6 py-8">
         {/* 页面头部 */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
           <h1 className="text-2xl font-bold text-foreground">转发管理</h1>
-          <Button 
-            color="primary" 
-            onPress={handleAdd}
-            startContent={
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-              </svg>
-            }
-          >
-            新增转发
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+            {/* 隧道过滤下拉框 */}
+            <Select
+              size="sm"
+              label="隧道过滤"
+              placeholder="全部隧道"
+              selectedKeys={filterTunnelId !== null ? [filterTunnelId.toString()] : []}
+              onSelectionChange={(keys) => {
+                const selectedKey = Array.from(keys)[0] as string;
+                setFilterTunnelId(selectedKey ? parseInt(selectedKey) : null);
+              }}
+              className="min-w-[140px]"
+              variant="bordered"
+            >
+              <SelectItem key="" >全部隧道</SelectItem>
+              {tunnels.map((tunnel) => (
+                <SelectItem key={tunnel.id.toString()}>{tunnel.name}</SelectItem>
+              ))}
+            </Select>
+            <Button 
+              color="primary" 
+              onPress={handleAdd}
+              startContent={
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                </svg>
+              }
+            >
+              新增转发
+            </Button>
+          </div>
         </div>
 
         {/* 转发卡片网格 */}
-        {forwards.length > 0 ? (
+        {(forwards.filter(f => filterTunnelId === null || f.tunnelId === filterTunnelId)).length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-            {forwards.map((forward) => {
+            {(forwards.filter(f => filterTunnelId === null || f.tunnelId === filterTunnelId)).map((forward) => {
               const statusDisplay = getStatusDisplay(forward.status);
               const strategyDisplay = getStrategyDisplay(forward.strategy);
               
