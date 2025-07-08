@@ -1175,6 +1175,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
      * @return 可用端口号，如果没有可用端口则返回null
      */
     private Integer allocatePortForNode(Long nodeId, Long excludeForwardId) {
+        Random random = new Random();
         // 获取节点信息
         Node node = nodeService.getNodeById(nodeId);
         if (node == null) {
@@ -1186,7 +1187,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
 
         // 在节点端口范围内寻找未使用的端口
         while(true){
-            int port = ThreadLocalRandom.current().nextInt(node.getPortSta(), node.getPortEnd() + 1);
+            int port = random.nextInt(node.getPortEnd() - node.getPortSta() + 1) + node.getPortSta();
             if (!usedPorts.contains(port)) {
                 return port;
                 break;
