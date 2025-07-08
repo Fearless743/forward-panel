@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.List;
 
 /**
  * <p>
@@ -50,28 +51,28 @@ public class ForwardController extends BaseController {
     @LogAnnotation
     @PostMapping("/delete")
     public R delete(@RequestBody Map<String, Object> params) {
-        Long[] id = (Long[]) params.get("id");
+        List<Long> id = (List<Long>) params.get("id");
         return forwardService.deleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/force-delete")
     public R forceDelete(@RequestBody Map<String, Object> params) {
-        Long[] id = (Long[]) params.get("id");
+        List<Long> id = (List<Long>) params.get("id");
         return forwardService.forceDeleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/pause")
     public R pause(@RequestBody Map<String, Object> params) {
-        Long[] id = (Long[]) params.get("id");
+        List<Long> id = (List<Long>) params.get("id");
         return forwardService.pauseForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/resume")
     public R resume(@RequestBody Map<String, Object> params) {
-        Long[] id = (Long[]) params.get("id");
+        List<Long> id = (List<Long>) params.get("id");
         return forwardService.resumeForward(id);
     }
 

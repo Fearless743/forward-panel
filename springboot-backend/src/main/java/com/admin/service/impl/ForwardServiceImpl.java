@@ -202,7 +202,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     }
 
     @Override
-    public R deleteForward(Long[] id) {
+    public R deleteForward(List<Long> id) {
         // 1. 获取当前用户信息
         UserInfo currentUser = getCurrentUserInfo();
 
@@ -258,7 +258,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     }
 
     @Override
-    public R pauseForward(Long[] id) {
+    public R pauseForward(List<Long> id) {
         for (Long forwardId : id) {
             R result = changeForwardStatus(forwardId, FORWARD_STATUS_PAUSED, "暂停", "PauseService");
             if (result.getCode() != 0) {
@@ -269,7 +269,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     }
 
     @Override
-    public R resumeForward(Long[] id) {
+    public R resumeForward(List<Long> id) {
         for (Long forwardId : id) {
             R result = changeForwardStatus(forwardId, FORWARD_STATUS_ACTIVE, "恢复", "ResumeService");
             if (result.getCode() != 0) {
@@ -280,7 +280,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     }
 
     @Override
-    public R forceDeleteForward(Long[] id) {
+    public R forceDeleteForward(List<Long> id) {
         // 1. 获取当前用户信息
         UserInfo currentUser = getCurrentUserInfo();
         // 直接删除转发记录，跳过GOST服务删除
@@ -292,7 +292,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
             }
 
             // 3. 直接删除转发记录，跳过GOST服务删除
-            boolean result = this.removeById(id);
+            boolean result = this.removeById(forwardId);
             if (result) {
                 // 归还用户转发条数（普通用户才需要归还）
                 returnUserForwardQuota(currentUser);

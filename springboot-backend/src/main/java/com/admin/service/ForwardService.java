@@ -5,7 +5,7 @@ import com.admin.common.dto.ForwardUpdateDto;
 import com.admin.common.lang.R;
 import com.admin.entity.Forward;
 import com.baomidou.mybatisplus.extension.service.IService;
-
+import java.util.List;
 // build backend
 
 /**
@@ -47,7 +47,7 @@ public interface ForwardService extends IService<Forward> {
      * @param id 转发ID
      * @return 结果
      */
-    R deleteForward(Long[] id);
+    R deleteForward(List<Long> id);
 
     /**
      * 强制删除端口转发
@@ -56,7 +56,7 @@ public interface ForwardService extends IService<Forward> {
      * @param id 转发ID
      * @return 结果
      */
-    R forceDeleteForward(Long[] id);
+    R forceDeleteForward(List<Long> id);
 
     /**
      * 暂停转发服务
@@ -64,7 +64,7 @@ public interface ForwardService extends IService<Forward> {
      * @param id 转发ID
      * @return 结果
      */
-    R pauseForward(Long[] id);
+    R pauseForward(List<Long> id);
 
     /**
      * 恢复转发服务
@@ -72,7 +72,7 @@ public interface ForwardService extends IService<Forward> {
      * @param id 转发ID
      * @return 结果
      */
-    R resumeForward(Long[] id);
+    R resumeForward(List<Long> id);
 
     /**
      * 转发诊断功能
