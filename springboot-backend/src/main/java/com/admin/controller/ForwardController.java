@@ -7,6 +7,8 @@ import com.admin.common.dto.ForwardUpdateDto;
 import com.admin.common.dto.PageDto;
 import com.admin.common.lang.R;
 import com.admin.service.ForwardService;
+import com.alibaba.fastjson.JSON;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -51,28 +53,29 @@ public class ForwardController extends BaseController {
     @LogAnnotation
     @PostMapping("/delete")
     public R delete(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) params.get("id");
+        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
         return forwardService.deleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/force-delete")
     public R forceDelete(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) params.get("id");
+        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
         return forwardService.forceDeleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/pause")
     public R pause(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) params.get("id");
+        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
+        System.out.println(id);
         return forwardService.pauseForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/resume")
     public R resume(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) params.get("id");
+        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
         return forwardService.resumeForward(id);
     }
 
