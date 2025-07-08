@@ -26,7 +26,7 @@ services:
       retries: 10
 
   backend:
-    image: bqlpfy/springboot-backend:latest
+    image: fearless743/springboot-backend:latest
     container_name: springboot-backend
     restart: unless-stopped
     environment:
@@ -48,14 +48,20 @@ services:
     networks:
       - gost-network
     healthcheck:
-      test: ["CMD", "sh", "-c", "wget --no-verbose --tries=1 --spider http://localhost:6365/flow/test || exit 1"]
+      test:
+        [
+          "CMD",
+          "sh",
+          "-c",
+          "wget --no-verbose --tries=1 --spider http://localhost:6365/flow/test || exit 1",
+        ]
       interval: 30s
       timeout: 10s
       retries: 5
       start_period: 90s
 
   frontend:
-    image: bqlpfy/vite-frontend:latest
+    image: fearless743/vite-frontend:latest
     container_name: vite-frontend
     restart: unless-stopped
     ports:
@@ -66,13 +72,11 @@ services:
     networks:
       - gost-network
 
-
 volumes:
   mysql_data:
     driver: local
   backend_logs:
     driver: local
-
 
 networks:
   gost-network:
@@ -80,5 +84,5 @@ networks:
     enable_ipv6: true
     ipam:
       config:
-        - subnet: 172.20.0.0/16 
+        - subnet: 172.20.0.0/16
         - subnet: fd00:dead:beef::/48
