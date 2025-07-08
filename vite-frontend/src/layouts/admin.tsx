@@ -266,6 +266,14 @@ export default function AdminLayout({
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={hideMobileMenu}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              hideMobileMenu();
+            }
+          }}
+          aria-label="关闭菜单"
         />
       )}
 
