@@ -628,7 +628,9 @@ export default function ForwardPage() {
     if (value < 1024 * 1024) return (value / 1024).toFixed(2) + " KB";
     if (value < 1024 * 1024 * 1024)
       return (value / (1024 * 1024)).toFixed(2) + " MB";
-    return (value / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+    if (value < 1024 * 1024 * 1024 * 1024)
+      return (value / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+    return (value / (1024 * 1024 * 1024 * 1024)).toFixed(2) + " TB";
   };
 
   // 格式化入口地址
