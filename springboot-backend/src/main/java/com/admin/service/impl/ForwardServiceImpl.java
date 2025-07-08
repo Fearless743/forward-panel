@@ -1186,11 +1186,10 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
         Set<Integer> usedPorts = getAllUsedPortsOnNode(nodeId, excludeForwardId);
 
         // 在节点端口范围内寻找未使用的端口
-        while(true){
+        for(int i = node.getPortSta(); i < node.getPortEnd()+1; i++){
             int port = random.nextInt(node.getPortEnd() - node.getPortSta() + 1) + node.getPortSta();
             if (!usedPorts.contains(port)) {
                 return port;
-                break;
             }
         }
         return null;
