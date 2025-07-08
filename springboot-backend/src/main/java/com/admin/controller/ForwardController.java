@@ -53,29 +53,28 @@ public class ForwardController extends BaseController {
     @LogAnnotation
     @PostMapping("/delete")
     public R delete(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
+        List<Long> id = JSON.parseArray(params.get("id").toString(), Long.class);
         return forwardService.deleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/force-delete")
     public R forceDelete(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
+        List<Long> id = JSON.parseArray(params.get("id").toString(), Long.class);
         return forwardService.forceDeleteForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/pause")
     public R pause(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
-        System.out.println(id);
+        List<Long> id = JSON.parseArray(params.get("id").toString(), Long.class);
         return forwardService.pauseForward(id);
     }
 
     @LogAnnotation
     @PostMapping("/resume")
     public R resume(@RequestBody Map<String, Object> params) {
-        List<Long> id = (List<Long>) JSON.parse(params.get("id").toString());
+        List<Long> id = JSON.parseArray(params.get("id").toString(), Long.class);
         return forwardService.resumeForward(id);
     }
 
