@@ -371,7 +371,7 @@ export default function ForwardPage() {
     setIsEdit(false);
     setForm({
       name: "",
-      tunnelId: null,
+      tunnelId: filterTunnelId,
       inPort: null,
       remoteAddr: "",
       strategy: "fifo",
