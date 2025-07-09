@@ -1,6 +1,11 @@
 #!/bin/bash
 # 下载地址
-DOWNLOAD_URL="https://raw.githubusercontent.com/fearless743/forward-panel/refs/heads/main/go-gost/gost"
+ARCH=$(uname -m)
+if [ "$ARCH" = "aarch64" ]; then
+  DOWNLOAD_URL="https://raw.githubusercontent.com/fearless743/forward-panel/refs/heads/main/go-gost/gost-arm64"
+else
+  DOWNLOAD_URL="https://raw.githubusercontent.com/fearless743/forward-panel/refs/heads/main/go-gost/gost"
+fi
 INSTALL_DIR="/etc/gost"
 
 # 显示菜单
@@ -133,6 +138,7 @@ install_gost() {
 
   # 下载 gost
   echo "⬇️ 下载 gost 中..."
+  
   curl -L "$DOWNLOAD_URL" -o "$INSTALL_DIR/gost"
   if [[ ! -f "$INSTALL_DIR/gost" || ! -s "$INSTALL_DIR/gost" ]]; then
     echo "❌ 下载失败，请检查网络或下载链接。"
