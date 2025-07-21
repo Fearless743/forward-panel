@@ -123,7 +123,7 @@ func main() {
 	defer wsReporter.Stop()
 
 	service.SetHTTPReportURL(config.Addr, config.Secret)
-	
+
 	p := &program{}
 
 	if err := svc.Run(p); err != nil {

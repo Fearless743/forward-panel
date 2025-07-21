@@ -63,6 +63,7 @@ interface ForwardForm {
   inPort: number | null;
   remoteAddr: string;
   strategy: string;
+  proxyProtocol: number;
 }
 
 interface AddressItem {
