@@ -125,7 +125,6 @@ export default function ForwardPage() {
         if (f) {
           const res = await updateForward({
             ...f,
-            inPort: void 0, // 自动分配端口
             tunnelId: batchTunnelId,
           });
           if (!res || res.code !== 0) {
