@@ -116,6 +116,7 @@ export default function ForwardPage() {
   };
 
   const handleBatchTunnelSubmit = async () => {
+    // 批量修改隧道
     if (!batchTunnelId || selectedIds.length === 0) return;
     setBatchTunnelLoading(true);
     let allSuccess = true;
